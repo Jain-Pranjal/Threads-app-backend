@@ -6,15 +6,20 @@
   "author": "Pranjal Jain <pranjalworkon@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.2",
     "tsc-watch": "^7.1.1",
     "typescript": "^5.8.3"
   },
   "dependencies": {
-    "express": "^5.1.0"
+    "@apollo/server": "^4.12.2",
+    "@as-integrations/express5": "^1.1.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "graphql": "^16.11.0"
   },
   "scripts": {
     "start": "node build/index.js",
-    "dev":"tsc-watch --onSuccess \"npm start\""
+    "dev": "tsc-watch --onSuccess \"npm start\""
   }
 }
