@@ -1,0 +1,20 @@
+{
+  "name": "Threads-app-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Jain-Pranjal/Threads-app-backend.git",
+  "author": "Pranjal Jain <pranjalworkon@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/express": "^5.0.2",
+    "tsc-watch": "^7.1.1",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "scripts": {
+    "start": "node build/index.js",
+    "dev":"tsc-watch --onSuccess \"npm start\""
+  }
+}
