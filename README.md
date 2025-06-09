@@ -12,3 +12,11 @@ yarn add tsc-watch -D  # to compile
 using the [express middleware]({https://www.apollographql.com/docs/apollo-server/api/express-middleware#expressmiddleware}) to connect Apollo Server with Express
 
 - we have use the apolo server in the same port as the express server but to access the apollo server we need to use the /graphql endpoint 
+- /var/lib/postgresql/data is the default data directory for PostgreSQL when running in a Docker container. This is where PostgreSQL stores all of its database files.
+
+
+## prisma connection with docker postgres
+when u use the docker compose up -d command 
+- then use the docker exec -it <container_id> bash command to enter the container
+- su postgres (which is the user name)
+- psql (to enter the postgres shell)

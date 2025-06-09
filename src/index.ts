@@ -1,6 +1,7 @@
 import express from 'express';
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@as-integrations/express5';
+import {prisma} from './lib/db';
 
 import cors from 'cors';
 
@@ -24,6 +25,10 @@ const gqlServer = new ApolloServer({
         hello: Myhello
         say(name: String!, age: Int!): String
     }
+
+    type Mutation {
+        createUser(email: String!, firstName: String!, lastName: String!, password: String!): Boolean
+
     `,
 
     resolvers: {
@@ -37,9 +42,23 @@ const gqlServer = new ApolloServer({
                 return `Hello, ${args.name}! You are ${args.age} years old.`;
             }
 
+        },
+    Mutation: {
+        createUser: async (_: any, args: { firstName: string, lastName: string, email: string, password: string }) => {
+            const salt = Math.random().toString(36).slice(2);
+            const user = await prisma.user.create({
+                data: {
+                    firstName: args.firstName,
+                    lastName: args.lastName,
+                    email: args.email,
+                    password: args.password,
+                    salt: salt
+                }
+            });
+            return true; 
         }
     }
-});
+}});
 
 
 // Start the Apollo server
