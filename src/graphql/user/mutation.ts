@@ -6,7 +6,7 @@ createUser(
     email: String!
     password: String!
     profileImageURL: String
-): string
+): String
 `
 
 // all these are the parameters that we want to take from the user while creating a new user
