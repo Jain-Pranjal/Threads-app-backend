@@ -63,6 +63,8 @@ class UserService{
         });
     }
 
+
+    // this is the login service that will be used to get the user token 
     public static async getUserToken(payload:GetUserTokenPayload){
         const { email, password } = payload;
         if(!email || !password) {
@@ -97,6 +99,39 @@ class UserService{
         );
 
         return token;
+    }
+
+
+    public static async decodeToken(token: string) {
+        if (!token) {
+            throw new Error("Token is required");
+        }
+
+        try {
+            const decoded = JWT.verify(token, process.env.JWT_SECRET as string);
+            return decoded;
+        } catch (error) {
+            throw new Error("Invalid token");
+        }
+    }
+
+
+    public static async getUserById(id: string) {
+        if (!id) {
+            throw new Error("User ID is required");
+        }
+
+        const user = await prisma.user.findUnique({
+            where: {
+                id
+            }
+        });
+
+        if (!user) {
+            throw new Error("User not found");
+        }
+
+        return user;
     }
 
 

@@ -9,3 +9,5 @@ export const typeDefs = `#graphql
     }
 
 `;
+
+// yeha jhum type ko lkhte hai ke aapk efrontenme me aap kya luya access kar skte ho means ke fe par jab bhi hum query ko marege to aap kya lya accesaknre k elayak hai anmd kya nnhi vo apa apni type me likhte ia 

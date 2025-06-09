@@ -2,6 +2,7 @@ import express from 'express';
 import { expressMiddleware } from '@as-integrations/express5';
 import createApolloGraphqlServer from './graphql';
 import cors from 'cors';
+import UserService from './services/user';
 
 
 async function init(){
@@ -22,12 +23,17 @@ async function init(){
     '/graphql',
     express.json(),
     cors<cors.CorsRequest>(),
-    expressMiddleware(gqlServer),
-    );
-    // at /graphql it will open the UI of GraphQL playground
-
-
-
+    expressMiddleware(gqlServer,
+        {context: async ({ req, res }) => {
+            const token=req.headers["token"];
+        try{
+            const user=await UserService.decodeToken(token as string);
+            return { user };
+        }catch(err){
+            return { user: null };
+        }
+    }})
+);
 
     app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
