@@ -24,7 +24,7 @@ async function init(){
     express.json(),
     cors<cors.CorsRequest>(),
     expressMiddleware(gqlServer,
-        {context: async ({ req, res }) => {
+        { context: async ({ req, res }) => {
             const token=req.headers["token"];
         try{
             const user=await UserService.decodeToken(token as string);
@@ -35,6 +35,8 @@ async function init(){
     }})
 );
 
+// in the context we are decoding the token that is passed in the headers and getting the user information from it
+
     app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
     });
@@ -42,3 +44,6 @@ async function init(){
 
 // calling the main function to start the server
 init();
+
+// passing the context so that every resolver have the info of the user that is logged in
+// before going to the express middleware we are checking if the user is logged in or not by decoding the token that is passed in the headers

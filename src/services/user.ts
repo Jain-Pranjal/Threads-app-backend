@@ -2,13 +2,15 @@
 
 // here we will create the user and login them by the jwt token
 
+// By default, all methods are public if you don’t specify anything.
 
 import { prisma } from "../lib/db";
 import { createHmac, randomBytes } from "node:crypto";
 import JWT from "jsonwebtoken";
 
 
-
+// this is the typescript schema for the user create and ? means optional field
+// basically this is the schema from the client side that we will use to create the user in the database
 export interface CreateUserPayload{
     firstName: string;
     lastName?: string;
@@ -18,6 +20,7 @@ export interface CreateUserPayload{
 }
 
 export interface GetUserTokenPayload {
+    // LOGIN PAYLOAD
     email: string;
     password: string;
 }
@@ -49,6 +52,7 @@ class UserService{
                 profileImageURL
             }
         });
+        // id will be generated automatically by the database
     }
 
 
@@ -77,7 +81,7 @@ class UserService{
             throw new Error("User not found");
         }
 
-        const userSalt = user.salt;
+        const userSalt = user.salt; //from the database
         const userHashedPassword = UserService.generateHash(userSalt, password);
 
 
@@ -141,4 +145,4 @@ class UserService{
 export default UserService;
 
 
-
+// we cannot dehash the password because hashing is a one way function and we cannot get the original password back from the hashed password so we need to hash the user provided password with the same salt and compare it with the hashed password in the database

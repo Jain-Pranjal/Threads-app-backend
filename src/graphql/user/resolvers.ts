@@ -11,6 +11,19 @@ const queries={
     }
 ,
 
+/*
+u r getting the context of the user in the form of 
+user: {
+    id: string;
+    email: string;
+    expiry: number
+}
+    as these fields we use to make the token
+
+
+
+IN THE CONTEXT WE ARE PASSING THE DECODED TOKEN OF THE USER THAT IS LOGGED IN SO THAT WE CAN ACCESS ITS FIELD 
+ */
     getCurrentLoggedInUser: async(_:any, parameters:any, context:any)=>{
         if(context && context.user) {
             const id=context.user.id;
@@ -36,4 +49,3 @@ const mutations={
 export const resolvers={queries,mutations}
 
 // in the resolvers we have the actual functions that will be used to resolve the queries and mutations so we have both queries and mutations 
-
